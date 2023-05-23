@@ -1,7 +1,7 @@
-name: Unit Tests
+name: dot net 
 
 on:
-  workflow_dispatch:
+  workflow_dispatch
 
 jobs:
   build-and-test:
@@ -9,12 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
+      uses: actions/setup-dotnet@v3
+      
         
     - name: Restore dependencies
       run: dotnet restore
@@ -23,10 +22,10 @@ jobs:
       run: dotnet build --no-restore
       
     - name: Test
-      run: dotnet test --logger trx --filter FullyQualifiedName\!~IntegrationTests --results-directory "TestResults"
+      run: dotnet test --logger trx 
 
     - name: Upload test results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       if: ${{ always() }}
       with:
         name: test-results
